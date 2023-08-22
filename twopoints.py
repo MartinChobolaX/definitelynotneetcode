@@ -1,3 +1,4 @@
+""""
 A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
 
 Given a string s, return true if it is a palindrome, or false otherwise.
@@ -22,8 +23,8 @@ Input: s = " "
 Output: true
 Explanation: s is an empty string "" after removing non-alphanumeric characters.
 Since an empty string reads the same forward and backward, it is a palindrome.
-
-
+""""
+# My first attemp
 class Solution(object):
     def isPalindrome(self, s):
         """
@@ -35,3 +36,119 @@ class Solution(object):
             return True
         else:
             return False
+
+
+
+
+
+
+
+
+""""
+Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 < numbers.length.
+
+Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2.
+
+The tests are generated such that there is exactly one solution. You may not use the same element twice.
+
+Your solution must use only constant extra space.
+
+ 
+
+Example 1:
+
+Input: numbers = [2,7,11,15], target = 9
+Output: [1,2]
+Explanation: The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2. We return [1, 2].
+
+Example 2:
+
+Input: numbers = [2,3,4], target = 6
+Output: [1,3]
+Explanation: The sum of 2 and 4 is 6. Therefore index1 = 1, index2 = 3. We return [1, 3].
+
+Example 3:
+
+Input: numbers = [-1,0], target = -1
+Output: [1,2]
+Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We return [1, 2].
+""""
+
+# My first attemp
+""""
+The first think i thought was that i need a matrix.
+list = [1,2,3,4]
+
+    0 1 2 3
+   --------
+0 | 2 3 4 5
+1 | 3 4 5 6
+2 | 4 5 6 7
+3 | 5 6 7 8
+
+We don't need the first column.
+
+    1 2 3
+   -------
+0 | 3 4 5
+1 | 4 5 6
+2 | 5 6 7
+3 | 6 7 8
+
+and because index_column should always be greater than index_row, pass calculating more than half of the matrix  
+
+    1 2 3
+   -------
+0 | 3 4 5
+1 |   5 6
+2 |     7
+3 |
+
+so the indexs i for index_column and j for index_row:
+
+0,1 - 0,2 - 0,3
+      1,2 - 1,3
+            2,3
+so:
+num_of_columns = len(list) - 1
+num_of_rows = len(list) - 1
+and when for-looping, the first index has to increase (i > j):
+first_index = 0 -> first_index += 1
+
+Because there should be only one solution, 
+insert if statement that if calculated elements are equal to target and return [i+1,j+1] (+1 because of Python superiority)
+""""
+
+# the code
+import numpy as np
+
+def twoSum(self, numbers, target):
+    """
+    :type numbers: List[int]
+    :type target: int
+    :rtype: List[int]
+    """
+    matrix = [[] for _ in range(len(numbers)-1)]
+    first_index = 0
+    for i in range(first_index,len(numbers)-1):
+        for j in range(first_index+1,len(numbers)):
+            if numbers[i]+numbers[j] == target:
+                return [i+1,j+1]
+            else: continue
+        first_index += 1
+
+
+# The quickest
+# two-pointer
+def twoSum1(self, numbers, target):
+    l, r = 0, len(numbers)-1
+    while l < r:
+        s = numbers[l] + numbers[r]
+        if s == target:
+            return [l+1, r+1]
+        elif s < target:
+            l += 1
+        else:
+            r -= 1
+
+# My learning part
