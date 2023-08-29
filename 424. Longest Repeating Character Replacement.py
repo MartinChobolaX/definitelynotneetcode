@@ -1,4 +1,15 @@
 from collections import Counter
+
+def custom_counter(string):
+    char_count = Counter(string)
+    
+    # Include keys with zero counts
+    all_chars = set(string)
+    for char in all_chars:
+        if char in char_count:
+            char_count[char] = 0
+    
+    return char_count
 def solution(s,k):
     l,r = 0,0
     char_freq = custom_counter(s)
@@ -12,17 +23,6 @@ def solution(s,k):
         longest_sub = max(longest_sub,r-l)
     return longest_sub
 
-
-def custom_counter(string):
-    char_count = Counter(string)
-    
-    # Include keys with zero counts
-    all_chars = set(string)
-    for char in all_chars:
-        if char in char_count:
-            char_count[char] = 0
-    
-    return char_count
 
 print(
 
